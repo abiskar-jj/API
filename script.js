@@ -27,10 +27,19 @@ button.addEventListener("click", function () {
             }
 
             const temp = data.main.temp;
+            const feelsLike = data.main.feels_like;
             const desc = data.weather[0].description;
 
+            
             resultBox.innerHTML =
+                "<strong>Weather in " + city + "</strong><br>" +
                 "Temperature: " + temp + "°C<br>" +
+                "Feels Like: " + feelsLike + "°C<br>" +
                 "Description: " + desc;
+                
+        })
+        .catch(function() {
+            resultBox.innerHTML = "There was a network error. Please try again.";
         });
+        
 });
