@@ -12,15 +12,25 @@ button.addEventListener("click", function () {
         resultBox.innerHTML = "Please type a city name.";
         return;
     }
-
+    // url of web app
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
+     
+    // fetch 
     fetch(url)
         .then(function(response) {
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
-            resultBox.innerHTML = "API call successful.";
+            if (data.cod === "404") {
+                resultBox.innerHTML = "City not found.";
+                return;
+            }
+
+            const temp = data.main.temp;
+            const desc = data.weather[0].description;
+
+            resultBox.innerHTML =
+                "Temperature: " + temp + "°C<br>" +
+                "Description: " + desc;
         });
 });
